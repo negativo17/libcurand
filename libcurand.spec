@@ -6,7 +6,7 @@
 
 Name:           libcurand
 Epoch:          2
-Version:        10.3.0.86
+Version:        10.3.1.50
 Release:        1%{?dist}
 Summary:        NVIDIA CUDA Random Number Generation library (cuRAND)
 License:        CUDA Toolkit
@@ -113,6 +113,9 @@ sed -i \
 %{_libdir}/libcurand_static.a
 
 %changelog
+* Tue Dec 13 2022 Simone Caronni <negativo17@gmail.com> - 2:10.3.1.50-1
+- Update to 10.3.1.50.
+
 * Fri Nov 11 2022 Simone Caronni <negativo17@gmail.com> - 2:10.3.0.86-1
 - Update to 10.3.0.86.
 - Use aarch64 archive in place of sbsa.
