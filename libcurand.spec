@@ -11,18 +11,14 @@ Release:        1%{?dist}
 Summary:        NVIDIA CUDA Random Number Generation library (cuRAND)
 License:        CUDA Toolkit
 URL:            https://developer.nvidia.com/cuda-toolkit
-ExclusiveArch:  x86_64 ppc64le aarch64
+ExclusiveArch:  x86_64 aarch64
 
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-x86_64/%{name}-linux-x86_64-%{version}-archive.tar.xz
-Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-ppc64le/%{name}-linux-ppc64le-%{version}-archive.tar.xz
-Source2:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-sbsa/%{name}-linux-sbsa-%{version}-archive.tar.xz
+Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{name}/linux-sbsa/%{name}-linux-sbsa-%{version}-archive.tar.xz
 Source3:        curand.pc
 
 Requires(post): ldconfig
 Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
-# Drop in 11.7:
-Provides:       cuda-curand = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      cuda-curand < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 The NVIDIA CUDA Random Number Generation library (cuRAND) delivers high
@@ -34,9 +30,6 @@ cores available in NVIDIA GPUs.
 Summary:        Development files for NVIDIA CUDA Random Number Generation library (cuRAND)
 Requires:       %{name}%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Conflicts:      %{name}-devel-%{major_package_version} < %{?epoch:%{epoch}:}%{version}
-# Drop in 11.7:
-Provides:       cuda-curand-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      cuda-curand-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description devel
 This package provides development files for the NVIDIA CUDA Random Number
@@ -45,9 +38,6 @@ Generation library (cuRAND).
 %package static
 Summary:        Static libraries for NVIDIA CUDA Random Number Generation (cuRAND)
 Requires:       %{name}-devel%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Drop in 11.7:
-Provides:       cuda-curand-static = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      cuda-curand-static < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description static
 This package contains static libraries for NVIDIA CUDA Random Number Generation
@@ -58,12 +48,8 @@ This package contains static libraries for NVIDIA CUDA Random Number Generation
 %setup -q -n %{name}-linux-x86_64-%{version}-archive
 %endif
 
-%ifarch ppc64le
-%setup -q -T -b 1 -n %{name}-linux-ppc64le-%{version}-archive
-%endif
-
 %ifarch aarch64
-%setup -q -T -b 2 -n %{name}-linux-sbsa-%{version}-archive
+%setup -q -T -b 1 -n %{name}-linux-sbsa-%{version}-archive
 %endif
 
 %install
@@ -115,6 +101,7 @@ sed -i \
 %changelog
 * Tue Mar 12 2024 Simone Caronni <negativo17@gmail.com> - 2:10.3.5.119-1
 - Update to 10.3.5.119.
+- Drop ppc64le.
 
 * Sat Jan 06 2024 Simone Caronni <negativo17@gmail.com> - 2:10.3.4.107-1
 - Update to 10.3.4.107.
